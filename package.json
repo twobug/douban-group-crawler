@@ -1,0 +1,23 @@
+{
+  "name": "v2ex-jobs",
+  "version": "1.0.0",
+  "description": "get job issues from v2ex.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "nicole0320"
+  },
+  "keywords": [
+    "web",
+    "crawler"
+  ],
+  "author": "Difan",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "superagent": "^3.5.2"
+  }
+}
