@@ -6,28 +6,12 @@ var url = require('url');
 
 var doubanUrl = 'https://www.douban.com/group/temphouse/discussion?start=';
 
-// superagent.get(v2exUrl).end(function(err, res){
-//     if(err){
-//         return console.error(err);
-//     }
-//     var topicUrls = [];
-//     getUrlsFromHtml(topicUrls, res.text)
-//     async.mapLimit(topicUrls, 4, function(url, callback){
-//         getInfoFromEachUrl(url, callback)
-//     }, function(err, result){
-//         console.log('final:')
-//         console.log(result);
-//         console.log(result.length)
-//     })
-// })
-
 var pageUrls = [];
 
-for(i=0; i<10; i++){
+//获取前4页的列表的地址
+for(i=0; i<4; i++){
     pageUrls.push(`${doubanUrl}${i*25}`);
 }
-
-    // console.log(pageUrls);
 
 // 抓取分页内容上的文章链接
 async.mapSeries(pageUrls, function(url, callback){
@@ -41,6 +25,15 @@ async.mapSeries(pageUrls, function(url, callback){
 }, function(err, result){
     var topicUrls = result.join().split(',');
     console.log(topicUrls);
+
+    //抓取每个主题帖中的内容
+    async.mapLimit(topicUrls, 4, function(url, callback){
+        getInfoFromEachUrl(url, callback)
+    }, function(err, result){
+        console.log('final:')
+        console.log(result);
+        console.log(result.length)
+    })
 })
 
 //将获取到的HTML内容中的文章链接都解析出来
