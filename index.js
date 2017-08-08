@@ -11,9 +11,11 @@ var pageUrls = [];
 //获取前4页的列表的地址
 for(i=0; i<4; i++){
     pageUrls.push(`${doubanUrl}${i*25}`);
+    console.log(`正在获取第 ${i + 1} 页列表`)
 }
 
 // 抓取分页内容上的文章链接
+console.log('正在解析文章列表...');
 async.mapSeries(pageUrls, function(url, callback){
     superagent.get(url).end(function(err, res){
         if(err){
@@ -24,7 +26,7 @@ async.mapSeries(pageUrls, function(url, callback){
     })
 }, function(err, result){
     var topicUrls = result.join().split(',');
-    console.log(topicUrls);
+    console.log('正在解析文章内容...');
 
     //抓取每个主题帖中的内容
     async.mapLimit(topicUrls, 4, function(url, callback){
@@ -32,7 +34,7 @@ async.mapSeries(pageUrls, function(url, callback){
     }, function(err, result){
         console.log('final:')
         console.log(result);
-        console.log(result.length)
+        console.log(`本次共爬取了 ${result.length} 条文章数据`)
     })
 })
 
