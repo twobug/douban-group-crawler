@@ -3,7 +3,9 @@ var async = require('async');
 var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
+var express = require('express');
 
+var app = express();
 var doubanUrl = 'https://www.douban.com/group/temphouse/discussion?start=';
 
 var pageUrls = [];
@@ -35,6 +37,11 @@ async.mapSeries(pageUrls, function(url, callback){
         console.log('final:')
         console.log(result);
         console.log(`本次共爬取了 ${result.length} 条文章数据`)
+
+        //监听请求，发送数据
+        app.get('/getDetail', function(req, res){
+            res.send(result);
+        })
     })
 })
 
@@ -67,3 +74,9 @@ function getInfoFromEachUrl(topicUrl, callback){
         callback(null, jsonObj);
     })
 }
+
+app.use(express.static('APP'))
+
+app.listen(3000, function(){
+    console.log('app is running at port 3000')
+})
