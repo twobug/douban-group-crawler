@@ -12,7 +12,7 @@ Node.js v8.1.4
 
 ```
 # 克隆到本地：
-$ git clone
+$ git clone git@github.com:Nicole0320/douban-group-crawler.git
 
 # 安装依赖：
 $ git install
@@ -21,6 +21,9 @@ $ git install
 $ npm start
 ```
 开启本地服务器后，打开 http://localhost:3000/app.html 就可以看到抓取到的数据展示页
+
+## 展示页截图：
+![项目截图](https://raw.githubusercontent.com/Nicole0320/douban-group-crawler/master/APP/douban.PNG)
 
 ## 关于下一版本的想法
 - 添加数据检索筛选，根据用户输入将符合条件的数据筛选出来展示
