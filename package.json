@@ -4,7 +4,8 @@
   "description": "get job issues from v2ex.com",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
