@@ -35,22 +35,19 @@ async.mapSeries(pageUrls, function(url, callback){
         getInfoFromEachUrl(url, callback)
     }, function(err, result){
         console.log('数据解析完成！')
-        // console.log(result);
+        console.log(result);
         console.log(`本次共爬取了 ${result.length} 条文章数据`)
 
         //监听请求，发送数据,一次发送15条
         app.get('/getOnePage', function(req, res){
             var index = req.query.start;
             var length = req.query.length;
-            console.log(index)
             if(index >= result.length){
                 res.send('end');
                 return;
             }
             else{
-                console.log('先传15条')
                 var arr = result.slice(index, (index+length));
-                console.log(arr.length)
                 res.send(arr);
             }
         })
