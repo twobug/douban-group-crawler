@@ -38,9 +38,21 @@ async.mapSeries(pageUrls, function(url, callback){
         // console.log(result);
         console.log(`本次共爬取了 ${result.length} 条文章数据`)
 
-        //监听请求，发送数据
-        app.get('/getDetail', function(req, res){
-            res.send(result);
+        //监听请求，发送数据,一次发送15条
+        app.get('/getOnePage', function(req, res){
+            var index = req.query.start;
+            var length = req.query.length;
+            console.log(index)
+            if(index >= result.length){
+                res.send('end');
+                return;
+            }
+            else{
+                console.log('先传15条')
+                var arr = result.slice(index, (index+length));
+                console.log(arr.length)
+                res.send(arr);
+            }
         })
     })
 })
@@ -68,7 +80,7 @@ function getInfoFromEachUrl(topicUrl, callback){
             title: $('#content h1').text().trim(),
             href: topicUrl,
             content: $('#link-report .topic-content p').text().trim(),
-            image: $('#link-report .topic-content .topic-figure img').eq(0).attr('src') || '',
+            image: $('#link-report .topic-content .topic-figure img').eq(0).attr('src'),
             time: $('.topic-doc h3 .color-green').html()
         }
         callback(null, jsonObj);
