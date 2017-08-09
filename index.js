@@ -4,7 +4,6 @@ var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
 var express = require('express');
-var mongoose = require('mongoose');
 
 var app = express();
 var doubanUrl = 'https://www.douban.com/group/temphouse/discussion?start=';
@@ -69,7 +68,7 @@ function getInfoFromEachUrl(topicUrl, callback){
             title: $('#content h1').text().trim(),
             href: topicUrl,
             content: $('#link-report .topic-content p').text().trim(),
-            image: $('#link-report .topic-content .topic-figure img').eq(0).attr('src'),
+            image: $('#link-report .topic-content .topic-figure img').eq(0).attr('src') || '',
             time: $('.topic-doc h3 .color-green').html()
         }
         callback(null, jsonObj);
