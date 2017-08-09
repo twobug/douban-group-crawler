@@ -75,7 +75,8 @@ function getInfoFromEachUrl(topicUrl, callback){
     })
 }
 
-app.use(express.static('APP'))
+//APP目录设置为静态文件托管目录，里面存放前端页面内容
+app.use(express.static('APP'));
 
 app.listen(3000, function(){
     console.log('app is running at port 3000')
