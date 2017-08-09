@@ -45,7 +45,7 @@ function getHTML(obj){
                     <h1><a href="${obj.href}">${obj.title}</a></h1>
                     <h3>${obj.time}</h3>
                     <p>${obj.content}</p>
-                    ${obj.image ? `<p>帖中有图片</p>`:''}
+                    ${obj.image ? `<p class="has-image">帖中有图片</p>`:''}
                 </li>`
     return html;
 }
