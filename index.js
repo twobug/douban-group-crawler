@@ -4,6 +4,7 @@ var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
 var express = require('express');
+var mongoose = require('mongoose');
 
 var app = express();
 var doubanUrl = 'https://www.douban.com/group/temphouse/discussion?start=';
@@ -34,8 +35,8 @@ async.mapSeries(pageUrls, function(url, callback){
     async.mapLimit(topicUrls, 4, function(url, callback){
         getInfoFromEachUrl(url, callback)
     }, function(err, result){
-        console.log('final:')
-        console.log(result);
+        console.log('数据解析完成！')
+        // console.log(result);
         console.log(`本次共爬取了 ${result.length} 条文章数据`)
 
         //监听请求，发送数据
